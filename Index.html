@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <h1>Undercover</h1>
+    <button id ="displayAll" onclick="displayAll()">afficher tout le site
+    </button>
+    <div id ='getnbplayer'>
+        <input type="number" placeholder="Nombre de joueurs" min="3" id="nbJoueurs" >
+        <button onclick="getNbJoueurs()">Validez</button>
+    </div>
+
+    <div id="etape2" style="display: none;">
+        <h3>Entrez les noms des joueurs</h3>
+        <div id="formulaireJoueurs"></div>
+        <button onclick="validerJoueurs()">Commencer le jeu</button>
+        
+    </div>
+
+
+    <div id="etape3" style="display: none;">
+        <h2>Participants</h2>
+        <button onclick="distribRole()">Continuer</button>
+        
+    </div>
+
+    <div id="roles" style ="display: none;">
+        <h2>Répartition des roles</h2>
+
+        <div>
+            <p>Nombre de Mister White</p><br>
+            <input type="number" id="nbMister"><br>
+        </div>
+
+    
+        <div>
+            <p>Nombre de Undercover</p><br>
+            <input type="number" id="nbUndercover"><br>
+        </div>
+
+        <div>
+            <p>Nombre de civil</p><br> 
+            <input type="number" id="nbCivil"><br>
+        </div>
+
+        <button onclick="distribRole()">Continuer</button>
+    </div>
+
+    <div class="major" id="game-page" style="display: none;">
+       <h2>Le premier joueur est <strong  class ='premierJoueur'id="monPremierJoueur"></strong></h2>
+
+       <h3>Résultat du vote. Qui doit être éliminé ?</h3>
+       <button id="eliminated" onclick="eliminated()">Éliminer</button>
+       <select id="selector">
+
+       </select>
+       
+       <div id="remaining-player">
+
+       </div>
+
+       
+
+    </div>
+
+        
+    <script src="script.js"></script>
+</body>
+</html>
