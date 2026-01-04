@@ -4,6 +4,14 @@ let remainingPlayer = [];
 
 let playerEliminate = [];
 
+let joueursAvecRoles = [{
+        nom :"",
+        role :""
+    }];
+
+let roles = [] ;
+
+
 function getNbJoueurs() {
     const Nbjoueurs = document.getElementById("nbJoueurs").value;
     //document.getElementById("nbJoueurs").innerHTML=nbJoueurs;
@@ -103,17 +111,14 @@ function FirstPlayer(){
 
 function distribRole() {
     const NbJoueurs = parseInt(document.getElementById("nbJoueurs").value);
-    const nbMister = parseInt(document.getElementById("nbMister").value) || 1;
-    const nbUndercover = parseInt(document.getElementById("nbUndercover").value)|| 1;
-    const nbCivil = parseInt(document.getElementById("nbCivil").value) || 0;
-    const roles = [{
-        nom :"",
-        role :""
-    }];
+    const nbMister = parseInt(document.getElementById("nbMister").value);
+    const nbUndercover = parseInt(document.getElementById("nbUndercover").value);
+    const nbCivil = parseInt(document.getElementById("nbCivil").value) ;
+    
 
 
 
-    if ((nbCivil+nbMister+nbUndercover) != NbJoueurs){
+    if ((nbCivil+nbMister+nbUndercover) < NbJoueurs){
         alert("Le nombre de roles ne correspond pas au nombre de joueurs")
         return;
     }
@@ -135,7 +140,7 @@ function distribRole() {
         [roles[i], roles[j]] = [roles[j], roles[i]];
     }
     const joueursAvecRoles = [];
-    for (let i = 0; i < nbJoueurs; i++) {
+    for (let i = 0; i < NbJoueurs; i++) {
         joueursAvecRoles.push({
             nom: joueurs[i].nom,
             role: roles[i]
@@ -205,15 +210,57 @@ function displayAll(){
 
 function eliminated() {
 
-    eliminated = document.getElementById('selector');
+  
+    eliminatedPlayer = document.getElementById('selector');
 
-    console.log(eliminated.value);
+    if (eliminatedPlayer.value === ""   ){
+        alert("Veuillez sélectionner un joueur à éliminer");
+        return;
+    }
     
-    playerEliminate.push(eliminated.value); 
+    playerEliminate.push(eliminatedPlayer.value); 
     console.log("eliminés ",playerEliminate);
 
-    remainingPlayer = remainingPlayer.filter(player => player !== eliminated.value);
+    remainingPlayer = remainingPlayer.filter(player => player !== eliminatedPlayer.value);
     console.log("restant ",remainingPlayer);
+
+    container2 = document.getElementById('selector');
+    container2.innerHTML ='';
+
+    remainingPlayer.forEach(player => {
+        const option = document.createElement('option');
+        option.value = player;
+        option.textContent = player;
+        selector.appendChild(option);
+    });
+
+    const container = document.getElementById('remaining-player');
+    container.innerHTML = '';
+    
+    remainingPlayer.forEach((remainingPlayer) => {
+        container.innerHTML += `
+            <div class="remaining-player">
+                <h3>${remainingPlayer}</h3>
+            <div>
+        `;
+    });
+
+    const eliminatedContainer = document.getElementById('eliminated-player');
+    eliminatedContainer.innerHTML = '';
+
+    playerEliminate.forEach((playerEliminate) => {
+        eliminatedContainer.innerHTML += `
+            <div class="eliminated-player">
+                <h3>${playerEliminate}</h3>
+            <div>
+        `;
+    });
+
+
+
 
 
 }
+
+
+
