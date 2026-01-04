@@ -27,3 +27,9 @@ p {
     color : red;
     animation: blink 1s infinite;
 }
+.eliminated-player {
+    border-radius: 20px;
+    background-color: white;
+    padding: 10px;
+    justify-content: center;
+}
