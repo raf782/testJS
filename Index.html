@@ -9,8 +9,7 @@
 <body>
     
     <h1>Undercover</h1>
-    <button id ="displayAll" onclick="displayAll()">afficher tout le site
-    </button>
+    <input type="radio" id ="displayAll" onclick="displayAll()" class="displayALL"></input>
     <div id ='getnbplayer'>
         <input type="number" placeholder="Nombre de joueurs" min="3" id="nbJoueurs" >
         <button onclick="getNbJoueurs()">Validez</button>
@@ -26,7 +25,10 @@
 
     <div id="etape3" style="display: none;">
         <h2>Participants</h2>
-        <button onclick="distribRole()">Continuer</button>
+        <button onclick="changementPage()">Continuer</button>
+
+        <div id="etape3Affichage">
+        </div>
         
     </div>
 
@@ -34,22 +36,22 @@
         <h2>Répartition des roles</h2>
 
         <div>
-            <p>Nombre de Mister White</p><br>
+            <h3>Nombre de Mister White</h3><br>
             <input type="number" id="nbMister"><br>
         </div>
 
     
         <div>
-            <p>Nombre de Undercover</p><br>
-            <input type="number" id="nbUndercover"><br>
+            <h3>Nombre de Undercover</h3><br>
+            <input type="number" id="nbUndercover" min="1"><br>
         </div>
 
         <div>
-            <p>Nombre de civil</p><br> 
-            <input type="number" id="nbCivil"><br>
+            <h3>Nombre de civil</h3><br> 
+            <input type="number" id="nbCivil" min="1"><br>
         </div>
 
-        <button onclick="distribRole()">Continuer</button>
+        <button onclick="distribRole()">Distribution des roles</button>
     </div>
 
     <div class="major" id="game-page" style="display: none;">
@@ -66,14 +68,24 @@
         </div>
 
         
-        <h3>Joueurs eliminés</h3>
+        <h2>Joueur éliminé :</h2>
         <div id="eliminated-player">
+            
             
 
 
         </div>
+
        
 
+    </div>
+
+    <div id="endGame" style ='display: none;'>
+        <h2>La partie est terminée !</h2>
+        <div id="CongratsMessage"></div>
+        <div id="recapGame"></div>
+            
+        <button onclick="location.reload()">Recommencer une partie</button>
     </div>
 
         
