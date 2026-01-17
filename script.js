@@ -36,6 +36,11 @@ const ptsUndercoverWin = 10;
 const ptsCivilWin = 2;
 const ptsMisterWin = 6;
 
+let nbMister = 0;
+let nbUndercover = 0;
+let nbCivil = 0;
+let win="";
+
 
 fetch('WordCSV.csv')
   .then(response => response.text())
@@ -104,9 +109,9 @@ function getNbJoueurs() {
 }
 
 function validerJoueurs(){
-    const Nbjoueurs =document.getElementById("nbJoueurs").value;
-    const mister_white= "Mister";
-    const sous_couv ="Undercover";
+    const Nbjoueurs = document.getElementById("nbJoueurs").value;
+    const mister_white = "Mister";
+    const sous_couv = "Undercover";
     joueurs = [];
 
     for (let i=0 ; i<Nbjoueurs; i++){
@@ -177,14 +182,14 @@ function FirstPlayer(){
 
 function distribRole() {
     const NbJoueurs = parseInt(document.getElementById("nbJoueurs").value);
-    const nbMister = parseInt(document.getElementById("nbMister").value);
-    const nbUndercover = parseInt(document.getElementById("nbUndercover").value);
-    const nbCivil = parseInt(document.getElementById("nbCivil").value) ;
+    nbMister = parseInt(document.getElementById("nbMister").value);
+    nbUndercover = parseInt(document.getElementById("nbUndercover").value);
+    nbCivil = parseInt(document.getElementById("nbCivil").value) ;
     
 
 
 
-    if ((nbCivil+nbMister+nbUndercover) < NbJoueurs){
+    if ((nbCivil+nbMister+nbUndercover) != NbJoueurs){
         alert("Le nombre de roles ne correspond pas au nombre de joueurs")
         return;
     }
@@ -202,7 +207,7 @@ function distribRole() {
         roles.push("Undercover");
     }
 
-    for (let i = roles.length - 1; i > 0; i--) {
+    for (let i = roles.length -1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [roles[i], roles[j]] = [roles[j], roles[i]];
     }
@@ -217,17 +222,17 @@ function distribRole() {
         let roleInfo = '';
         if (joueur.role === 'Mister White') {
 
-            window.alert(`Seul ${joueur.nom} peut voir son rôle. Appuyez sur OK à l'abris des regards.`);
+            window.alert(`Seul ${joueur.nom} peut voir son mot secret. Appuyez sur OK à l'abris des regards.`);
 
             window.alert(`${joueur.nom}, votre rôle est Mister White. `);
         }
         else if (joueur.role === 'Undercover') {
-            window.alert(`Seul ${joueur.nom} peut voir son rôle. Appuyez sur OK à l'abris des regards.`);
+            window.alert(`Seul ${joueur.nom} peut voir son mot secret. Appuyez sur OK à l'abris des regards.`);
 
-            window.alert(`Le mot secret est : ${motSecretUndercover},`);
+            window.alert(`Le mot secret est : ${motSecretUndercover}`);
         }
         else if (joueur.role === 'Civil') {
-            window.alert(`Seul ${joueur.nom} peut voir son rôle. Appuyez sur OK à l'abris des regards.`);
+            window.alert(`Seul ${joueur.nom} peut voir son mot secret. Appuyez sur OK à l'abris des regards.`);
             
             window.alert(`Le mot secret est : ${motSecret}`);
         }
@@ -343,11 +348,12 @@ function eliminated() {
     if (EliminatedRole === roleMister) {
         
         guess = window.prompt(`Le Mister White ${eliminatedPlayerValue} doit repondre. Quel est le mot secret ?`);
-        if (guess.toLocaleLowerCase() === motSecret) {
+        if (guess.toLocaleLowerCase() === motSecret.toLocaleLowerCase()) {
             window.alert(`Mister White a trouvé le mot secret! Mister White gagne la partie!`);
             document.getElementById("game-page").style.display= 'none';
             document.getElementById("endGame").style.display = 'block';
             document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitations à Mister White ${eliminatedPlayerValue} pour avoir gagné la partie en devinant le mot secret !</h3>`;
+            win='Mister White';
             recap();
         
 
@@ -373,50 +379,42 @@ function winCheck() {
     remainingCivil = remainingPlayer.filter(player => getRoleByNom(player) === 'Civil');
     remainingMister = remainingPlayer.filter(player => getRoleByNom(player) === 'Mister White');
     
-    if (remainingCivil.length <= 1 && remainingUndercover.length >= 1 && remainingMister.length === 0) {
+    
+
+    if (remainingCivil.length <=1 && remainingUndercover.length > 0 && remainingMister.length === 0) {
         document.getElementById("game-page").style.display= 'none';
         document.getElementById("endGame").style.display = 'block';
         document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitation les Undercovers gagnent ! </h3>`;
+        win='Undercover';
+        recap();
+    }
+    if (remainingCivil.length >=1 && remainingUndercover.length === 0 && remainingMister.length === 0) {
+        document.getElementById("game-page").style.display= 'none';
+        document.getElementById("endGame").style.display = 'block';
+        document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitation les Civils gagnent ! </h3>`;
+        win='Civils';
+        recap();
+    }
+    if (remainingCivil.length <=1 && remainingUndercover.length === 0 && remainingMister.length > 0) {
+        document.getElementById("game-page").style.display= 'none';
+        document.getElementById("endGame").style.display = 'block';
+        document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitation le Mister White gagne ! </h3>`;
+        win='Mister White';
+        recap();
+    }
+    
+    if (remainingUndercover.length > 0 && remainingMister.length > 0 && remainingCivil.length <= 1) {
+        document.getElementById("game-page").style.display= 'none';
+        document.getElementById("endGame").style.display = 'block';
+        document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitation les Undercovers et le Mister White gagnent ! </h3>`;
+        win='Undercover/Mister White';
         recap();
 
     }
+    
+    
 
-    if (remainingUndercover.length === 0 && remainingCivil.length >= 1 && remainingMister > 0) {
-            
-        
-        guess = window.prompt(`Le Mister White ${eliminatedPlayerValue} doit repondre. Quel est le mot secret ?`);
-        console.log("guess fin de game :", guess);
-        if (guess.toLocaleLowerCase() === motSecret) {
-            window.alert(`Mister White a trouvé le mot secret! Mister White gagne la partie!`);
-            document.getElementById("game-page").style.display= 'none';
-            document.getElementById("endGame").style.display = 'block';
-            document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitations à Mister White ${eliminatedPlayerValue} pour avoir gagné la partie en devinant le mot secret !</h3>`;
-            recap();
-        }else{
-            document.getElementById("game-page").style.display= 'none';
-            document.getElementById("endGame").style.display = 'block';
-            document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitation au civil pour avoir Gagné la partie</h3>`;
-            recap();
-
-        }
-    }
-    if (remainingCivil.length === 0 && remainingUndercover.length >= 1 && remainingMister.length > 0) {
-        guess = window.prompt(`Le Mister White ${eliminatedPlayerValue} doit repondre. Quel est le mot secret ?`);
-        console.log("guess fin de game :", guess);
-        if (guess.toLocaleLowerCase() === motSecret) {
-            window.alert(`Mister White a trouvé le mot secret! Mister White gagne la partie!`);
-            document.getElementById("game-page").style.display= 'none';
-            document.getElementById("endGame").style.display = 'block';
-            document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitations à Mister White ${eliminatedPlayerValue} pour avoir gagné la partie en devinant le mot secret !</h3>`;
-            recap();
-        }else{
-            document.getElementById("game-page").style.display= 'none';
-            document.getElementById("endGame").style.display = 'block';
-            document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitation au Undercover pour avoir Gagné la partie</h3>`;
-            recap();
-
-        }
-    }
+    
 
 }
 
@@ -442,6 +440,85 @@ function recap() {
             </div>
         `;
     });
+    updateScores();
 
 
+}
+
+function updateScores() {
+    if (win === 'Undercover') {
+        joueurs.forEach(joueur => {
+            if (getRoleByNom(joueur.nom) === 'Undercover') {
+                joueur.score += ptsUndercoverWin;
+            }
+        });
+    }
+
+    if (win === 'Mister White') {
+        joueurs.forEach(joueur => {
+            if (getRoleByNom(joueur.nom) === 'Mister White') {
+                joueur.score += ptsMisterWin;
+            }
+        });
+    }
+    if (win === 'Civils') {
+        joueurs.forEach(joueur => {
+            if (getRoleByNom(joueur.nom) === 'Civil') {
+                joueur.score += ptsCivilWin;
+            }
+        });
+    }
+
+
+    if (win === 'Undercover/Mister White') {
+        joueurs.forEach(joueur => {
+            if (getRoleByNom(joueur.nom) === 'Undercover') {
+                joueur.score += ptsUndercoverWin;
+            }
+            if (getRoleByNom(joueur.nom) === 'Mister White') {
+                joueur.score += ptsMisterWin;
+            }
+        });
+    }
+    
+    const container = document.getElementById('scoreEndGame');
+    container.innerHTML = '';
+    
+    joueurs.forEach((joueurs) => {
+        container.innerHTML += `
+            <div style="border: 2px solid #333; padding: 15px; margin: 10px 0; border-radius: 8px; background-color: #f0f0f0;">
+                <h3>${joueurs.nom}</h3>
+                <p style="font-size: 24px; font-weight: bold;">Score: ${joueurs.score}</p>
+                
+                
+            </div>
+            
+
+        `;
+    });
+}
+
+function replayWithSamePlayer() {
+    // Réinitialiser les variables nécessaires
+    remainingPlayer = [];
+    playerEliminate = [];
+    joueursAvecRoles.length = 0;
+    roles = [];
+    end = 'false';
+    eliminatedPlayerValue = '';
+    nbMister = 0;
+    nbUndercover = 0;
+    nbCivil = 0;
+    win = "";
+
+    // Réafficher la page de distribution des rôles
+    document.getElementById("endGame").style.display = 'none';
+    document.getElementById("roles").style.display = 'block';
+
+    
+    document.getElementById('remaining-player').innerHTML = '';
+    document.getElementById('eliminated-player').innerHTML = '';
+    document.getElementById('selector').innerHTML = '';
+
+    choixMot(); 
 }
