@@ -1,0 +1,178 @@
+/* General styles */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+h3 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+input[type="number"] {
+    width: 50px;
+    height: 25px;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    width: 100px;
+    height: 35px;
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #3e8e41;
+}
+
+/* Specific styles */
+
+#displayAll {
+    margin-bottom: 20px;
+}
+
+#etape2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#formulaireJoueurs {
+    margin-bottom: 20px;
+}
+
+#etape3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#etape3Affichage {
+    margin-bottom: 20px;
+}
+
+#roles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#roles div {
+    margin-bottom: 20px;
+}
+
+#game-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#game-page strong {
+    font-weight: bold;
+    color: #333;
+}
+
+#selector {
+    width: 200px;
+    height: 35px;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+#selector option {
+    padding: 10px;
+}
+
+#remaining-player {
+    margin-bottom: 20px;
+}
+
+#eliminated-player {
+    margin-bottom: 20px;
+}
+
+#endGame {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#CongratsMessage {
+    margin-bottom: 20px;
+}
+
+#recapGame {
+    margin-bottom: 20px;
+}
+
+#scoreEndGame {
+    margin-bottom: 20px;
+}
+
+/* Animations */
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+#game-page {
+    animation: fadeIn 1s;
+}
+
+#endGame {
+    animation: fadeIn 1s;
+}
+
+/* Responsive design */
+
+@media only screen and (max-width: 600px) {
+    #game-page {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

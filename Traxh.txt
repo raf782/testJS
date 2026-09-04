@@ -1,0 +1,20 @@
+ if (remainingPlayer <=2 && getRoleByNom(remainingPlayer[0]) ==='Mister White' | getRoleByNom(remainingPlayer[1]) ==='Mister White') {
+        document.getElementById("game-page").style.display= 'none';
+        document.getElementById("endGame").style.display = 'block';
+        document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitations à Mister White pour avoir gagné la partie !</h3>`;
+        recap();
+    }
+    else if (remainingPlayer.length <= 2 && (getRoleByNom(remainingPlayer[0]) === 'Undercover' | getRoleByNom(remainingPlayer[1]) === 'Undercover')) {
+        window.alert("Les Undercover ont gagné la partie !");
+        document.getElementById("game-page").style.display= 'none';
+        document.getElementById("endGame").style.display = 'block';
+        document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitations aux Undercover pour avoir gagné la partie !</h3>`;
+        recap();
+    
+    }else if (remainingPlayer.length <= 2 && getRoleByNom(remainingPlayer[0]) === 'Civil' | getRoleByNom(remainingPlayer[1]) === 'Civil') {
+        window.alert("Les Civils ont gagné la partie !");
+        document.getElementById("game-page").style.display= 'none';
+        document.getElementById("endGame").style.display = 'block';
+        document.getElementById("CongratsMessage").innerHTML = `<h3>Félicitations aux Civils pour avoir gagné la partie !</h3>`;
+        recap();
+    }

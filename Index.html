@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <h1>Undercover</h1>
+    <input type="radio" id ="displayAll" onclick="displayAll()" class="displayALL"></input>
+    <div id ='getnbplayer'>
+        <input type="number" placeholder="Nombre de joueurs" min="3" id="nbJoueurs" >
+        <button onclick="getNbJoueurs()">Validez</button>
+    </div>
+
+    <div id="etape2" style="display: none;">
+        <h3>Entrez les noms des joueurs</h3>
+        <div id="formulaireJoueurs"></div>
+        <button onclick="validerJoueurs()">Commencer le jeu</button>
+        
+    </div>
+
+
+    <div id="etape3" style="display: none;">
+        <h2>Participants</h2>
+        <button onclick="changementPage()">Continuer</button>
+
+        <div id="etape3Affichage">
+        </div>
+        
+    </div>
+
+    <div id="roles" style ="display: none;">
+        <h2>Répartition des roles</h2>
+
+        <div>
+            <h3>Nombre de Mister White</h3><br>
+            <input type="number" id="nbMister" value="0"><br>
+        </div>
+
+    
+        <div>
+            <h3>Nombre de Undercover</h3><br>
+            <input type="number" id="nbUndercover" value= "0" ><br>
+        </div>
+
+        <div>
+            <h3>Nombre de civil</h3><br> 
+            <input type="number" id="nbCivil" value = "0" min="1"><br>
+        </div>
+
+        <button onclick="distribRole()">Distribution des roles</button>
+    </div>
+
+    <div class="major" id="game-page" style="display: none;">
+        <h2>Le premier joueur est <strong  class ='premierJoueur'id="monPremierJoueur"></strong></h2>
+
+        <h3>Résultat du vote. Qui doit être éliminé ?</h3>
+        <button id="eliminatedBtn" onclick="eliminated()">Éliminer</button>
+        <select id="selector">
+
+        </select>
+
+        <div id="remaining-player">
+
+        </div>
+
+        
+        <h2>Joueur éliminé :</h2>
+        <div id="eliminated-player">
+            
+            
+
+
+        </div>
+
+       
+
+    </div>
+
+    <div id="endGame" style ='display: none;'>
+        <h2>La partie est terminée !</h2>
+        <div id="CongratsMessage"></div>
+        <div id="recapGame"></div>
+        <h2>Scores finaux :</h2>
+        <div id="scoreEndGame"></div>
+
+        <button onclick="replayWithSamePlayer()">Recommencer avec les même joueurs</button>
+            
+        <button onclick="location.reload()">Recommencer une partie</button>
+    </div>
+
+        
+    <script src="script.js"></script>
+</body>
+</html>
